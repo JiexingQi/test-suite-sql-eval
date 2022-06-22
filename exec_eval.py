@@ -225,10 +225,12 @@ def eval_exec_match(db: str, p_str: str, g_str: str, plug_value: bool, keep_dist
             p_flag, p_denotation = asyncio.run(exec_on_db(db_path, pred))
 
             # we should expect the gold to be succesfully executed on the database
-            assert g_flag != 'exception', 'gold query %s has error on database file %s' % (g_str, db_path)
+            # assert g_flag != 'exception', 'gold query %s has error on database file %s' % (g_str, db_path)
+            if g_flag == 'exception':
+                pred_passes = 0
 
             # wrong if execution fails
-            if p_flag == 'exception':
+            elif p_flag == 'exception':
                 pred_passes = 0
 
             # if denotations are not equivalent, the prediction must be wrong
